@@ -69,7 +69,7 @@ export default function Index() {
       // Transform the API response to match our display format
       const transformedRecipes: DisplayRecipe[] = data.map((recipe: Recipe, index: number) => ({
         ...recipe,
-        description: `A delicious recipe featuring ${recipe.ingredients.slice(0, 3).join(", ")} and more.`,
+        description: recipe.name ? `A delicious recipe featuring ${recipe.ingredients.slice(0, 3).join(", ")} and more.` : `Recipe with ${ingredients.join(", ")}`,
         cookTime: `${20 + index * 10} mins`,
         servings: 4 + index,
         difficulty: index % 3 === 0 ? "Easy" : index % 3 === 1 ? "Medium" : "Hard"
