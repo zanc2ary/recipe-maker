@@ -95,11 +95,9 @@ export const getRecipeRecommendations = async (req, res) => {
     }
   } catch (error) {
     console.error("Server error in recipe recommendations:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to get recipe recommendations",
-        details: error.message,
-      });
+    res.status(500).json({
+      error: "Failed to get recipe recommendations",
+      details: error.message,
+    });
   }
 };

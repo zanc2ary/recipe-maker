@@ -53,7 +53,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 ### Styling System
 
 - **Primary**: TailwindCSS 3 utility classes
-- **Theme and design tokens**: Configure in `client/global.css` 
+- **Theme and design tokens**: Configure in `client/global.css`
 - **UI components**: Pre-built library in `client/components/ui/`
 - **Utility**: `cn()` function combines `clsx` + `tailwind-merge` for conditional classes
 
@@ -73,16 +73,20 @@ className={cn(
 - **API endpoints**: Prefixed with `/api/`
 
 #### Example API Routes
+
 - `GET /api/ping` - Simple ping api
-- `GET /api/demo` - Demo endpoint  
+- `GET /api/demo` - Demo endpoint
 
 ### Shared Utilities
+
 Import consistent utilities in both client and server:
+
 ```javascript
-import { DemoResponse } from '@shared/api';
+import { DemoResponse } from "@shared/api";
 ```
 
 Path aliases:
+
 - `@shared/*` - Shared folder
 - `@/*` - Client folder
 
@@ -102,17 +106,20 @@ npm test          # Run Vitest tests
 Open `client/global.css` and `tailwind.config.js` and add new tailwind colors.
 
 ### New API Route
+
 1. Create a new route handler in `server/routes/my-route.js`:
+
 ```javascript
 export const handleMyRoute = (req, res) => {
   const response = {
-    message: 'Hello from my endpoint!'
+    message: "Hello from my endpoint!",
   };
   res.json(response);
 };
 ```
 
 2. Register the route in `server/index.js`:
+
 ```javascript
 import { handleMyRoute } from "./routes/my-route.js";
 
@@ -121,14 +128,17 @@ app.get("/api/my-endpoint", handleMyRoute);
 ```
 
 3. Use in React components:
+
 ```javascript
-const response = await fetch('/api/my-endpoint');
+const response = await fetch("/api/my-endpoint");
 const data = await response.json();
 ```
 
 ### New Page Route
+
 1. Create component in `client/pages/MyPage.jsx`
 2. Add route in `client/App.jsx`:
+
 ```javascript
 <Route path="/my-page" element={<MyPage />} />
 ```

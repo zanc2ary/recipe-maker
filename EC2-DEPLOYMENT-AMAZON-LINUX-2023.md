@@ -5,6 +5,7 @@ Deploy your React + Express JavaScript application on Amazon Linux 2023 EC2 inst
 ## Prerequisites Setup
 
 ### 1. Install Node.js (Latest LTS)
+
 ```bash
 # Update system
 sudo dnf update -y
@@ -19,11 +20,13 @@ npm --version
 ```
 
 ### 2. Install Git (if not already installed)
+
 ```bash
 sudo dnf install -y git
 ```
 
 ### 3. Install PM2 for Process Management
+
 ```bash
 sudo npm install -g pm2
 ```
@@ -31,6 +34,7 @@ sudo npm install -g pm2
 ## Application Deployment
 
 ### 1. Clone or Upload Your Application
+
 ```bash
 # Option A: Clone from repository (replace with your repo URL)
 git clone <your-repo-url> fusion-app
@@ -43,18 +47,21 @@ cd fusion-app
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 # Install all project dependencies
 npm install
 ```
 
 ### 3. Build the Application
+
 ```bash
 # Build both client and server
 npm run build
 ```
 
 ### 4. Environment Configuration
+
 ```bash
 # Create environment file
 cat > .env << EOF
@@ -65,6 +72,7 @@ EOF
 ```
 
 ### 5. Test the Application
+
 ```bash
 # Test production build locally first
 npm start
@@ -78,6 +86,7 @@ curl http://localhost:3000/api/ping
 ## Production Setup with PM2
 
 ### 1. Create PM2 Configuration
+
 ```bash
 cat > ecosystem.config.js << 'EOF'
 module.exports = {
@@ -98,6 +107,7 @@ EOF
 ```
 
 ### 2. Start Application with PM2
+
 ```bash
 # Start the application
 pm2 start ecosystem.config.js
@@ -115,6 +125,7 @@ pm2 startup
 ```
 
 ### 3. Configure PM2 Auto-start on Boot
+
 ```bash
 # Generate startup script (run the command PM2 provides)
 sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
@@ -123,13 +134,16 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 ## Security Group Configuration
 
 ### Configure AWS Security Group
+
 In your AWS Console, ensure your EC2 security group allows:
+
 - **Inbound Rule**: Custom TCP, Port 3000, Source: 0.0.0.0/0 (or your specific IP range)
 - **Outbound Rule**: All traffic (default)
 
 ## Firewall Configuration (if enabled)
 
 ### Configure firewalld (if running)
+
 ```bash
 # Check if firewalld is running
 sudo systemctl status firewalld
@@ -142,6 +156,7 @@ sudo firewall-cmd --reload
 ## Testing the Deployment
 
 ### 1. Test Local Access
+
 ```bash
 # Test API endpoint
 curl http://localhost:3000/api/ping
@@ -151,22 +166,26 @@ curl http://localhost:3000
 ```
 
 ### 2. Test External Access
+
 ```bash
 # Replace YOUR_EC2_PUBLIC_IP with your actual EC2 public IP
 curl http://YOUR_EC2_PUBLIC_IP:3000/api/ping
 ```
 
 ### 3. Browser Test
+
 Open in browser: `http://YOUR_EC2_PUBLIC_IP:3000`
 
 ## Optional: Setup Nginx Reverse Proxy
 
 ### 1. Install Nginx
+
 ```bash
 sudo dnf install -y nginx
 ```
 
 ### 2. Configure Nginx
+
 ```bash
 sudo cat > /etc/nginx/conf.d/fusion-app.conf << 'EOF'
 server {
@@ -189,6 +208,7 @@ EOF
 ```
 
 ### 3. Start Nginx
+
 ```bash
 sudo systemctl enable nginx
 sudo systemctl start nginx
@@ -199,6 +219,7 @@ sudo systemctl start nginx
 ## Management Commands
 
 ### PM2 Management
+
 ```bash
 # View application status
 pm2 status
@@ -217,6 +238,7 @@ pm2 monit
 ```
 
 ### Application Updates
+
 ```bash
 # Pull latest changes
 git pull
@@ -229,6 +251,7 @@ pm2 restart fusion-app
 ```
 
 ### System Monitoring
+
 ```bash
 # Check disk space
 df -h
@@ -248,11 +271,13 @@ ps aux | grep node
 ### Common Issues
 
 1. **Port 3000 not accessible externally**
+
    - Check security group settings
    - Verify firewall configuration
    - Ensure app is binding to 0.0.0.0, not just localhost
 
 2. **Application won't start**
+
    - Check logs: `pm2 logs fusion-app`
    - Verify build completed: `ls -la dist/`
    - Check environment variables: `pm2 env 0`
@@ -263,6 +288,7 @@ ps aux | grep node
    - Check for memory leaks in logs
 
 ### Useful Commands
+
 ```bash
 # Check what's running on port 3000
 sudo netstat -tulpn | grep :3000
@@ -280,6 +306,7 @@ htop
 ## Security Best Practices
 
 1. **Update system regularly**
+
    ```bash
    sudo dnf update -y
    ```
@@ -289,6 +316,7 @@ htop
 3. **Use environment variables** for sensitive data
 
 4. **Monitor logs regularly**
+
    ```bash
    pm2 logs --lines 100
    ```
