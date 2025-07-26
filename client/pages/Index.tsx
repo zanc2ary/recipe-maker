@@ -27,6 +27,7 @@ export default function Index() {
   const [currentIngredient, setCurrentIngredient] = useState("");
   const [generatedRecipes, setGeneratedRecipes] = useState<DisplayRecipe[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   const addIngredient = () => {
     if (currentIngredient.trim() && !ingredients.includes(currentIngredient.trim())) {
