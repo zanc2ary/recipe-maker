@@ -69,7 +69,9 @@ export default function Index() {
       const data = await response.json();
 
       // Check if we got fallback data (indicated by fallback- prefix in id)
-      const isUsingFallbackData = data.some((recipe: Recipe) => recipe.id?.startsWith('fallback-'));
+      const isUsingFallbackData = data.some((recipe: Recipe) =>
+        typeof recipe.id === 'string' && recipe.id.startsWith('fallback-')
+      );
       setUsingFallback(isUsingFallbackData);
 
       // Transform the API response to match our display format
