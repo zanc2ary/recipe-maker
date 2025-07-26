@@ -1,6 +1,6 @@
 export default {
   darkMode: ["class"],
-  content: ["./client/**/*.{ts,tsx}"],
+  content: ["./client/**/*.{js,jsx}"],
   prefix: "",
   theme: {
     container: {
