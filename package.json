@@ -14,11 +14,10 @@
     "dev": "vite",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build",
-    "build:server": "vite build --config vite.config.server.ts",
+    "build:server": "vite build --config vite.config.server.js",
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
-    "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "format.fix": "prettier --write ."
   },
   "dependencies": {
     "dotenv": "^17.2.0",
