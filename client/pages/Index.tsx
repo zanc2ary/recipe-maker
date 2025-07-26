@@ -77,14 +77,14 @@ export default function Index() {
 
       setGeneratedRecipes(transformedRecipes);
     } catch (error) {
-      console.error('Error calling Lambda API:', error);
+      console.error('Error calling recipe API:', error);
 
-      // Fallback to mock data if API fails
+      // Show user-friendly error message but still provide fallback recipes
       const fallbackRecipes: DisplayRecipe[] = [
         {
           id: "fallback-1",
           name: `Recipe with ${ingredients[0]}`,
-          description: `A delicious dish featuring ${ingredients.join(", ")} and complementary ingredients.`,
+          description: `A delicious dish featuring ${ingredients.join(", ")} and complementary ingredients. (Using demo recipes - API temporarily unavailable)`,
           cookTime: "25 mins",
           servings: 4,
           difficulty: "Easy",
