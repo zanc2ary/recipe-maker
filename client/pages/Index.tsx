@@ -50,6 +50,7 @@ export default function Index() {
     if (ingredients.length === 0) return;
 
     setIsGenerating(true);
+    setUsingFallback(false);
 
     try {
       // Call Lambda API through our backend proxy to avoid CORS issues
@@ -66,6 +67,10 @@ export default function Index() {
       }
 
       const data = await response.json();
+
+      // Check if we got fallback data (indicated by fallback- prefix in id)
+      const isUsingFallbackData = data.some((recipe: Recipe) => recipe.id?.startsWith('fallback-'));
+      setUsingFallback(isUsingFallbackData);
 
       // Transform the API response to match our display format
       const transformedRecipes: DisplayRecipe[] = data.map((recipe: Recipe, index: number) => ({
