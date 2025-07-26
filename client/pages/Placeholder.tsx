@@ -1,6 +1,12 @@
 import { ChefHat, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 interface PlaceholderProps {
@@ -20,7 +26,9 @@ export default function Placeholder({ title, description }: PlaceholderProps) {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">RecipeAI</h1>
-              <p className="text-sm text-muted-foreground">Turn your ingredients into amazing recipes</p>
+              <p className="text-sm text-muted-foreground">
+                Turn your ingredients into amazing recipes
+              </p>
             </div>
           </div>
         </div>
@@ -40,7 +48,8 @@ export default function Placeholder({ title, description }: PlaceholderProps) {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground mb-6">
-                This page is coming soon! Continue building your recipe collection or let us know what features you'd like to see here.
+                This page is coming soon! Continue building your recipe
+                collection or let us know what features you'd like to see here.
               </p>
               <Link to="/">
                 <Button>

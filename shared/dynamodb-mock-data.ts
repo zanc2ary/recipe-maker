@@ -6,65 +6,92 @@ export const mockRecipes = [
     ingredients: ["chicken", "rice", "soy sauce", "eggs", "onion", "garlic"],
     instructions: [
       "Cook rice and set aside",
-      "Beat eggs and scramble, remove from pan", 
+      "Beat eggs and scramble, remove from pan",
       "Sauté onion and garlic until fragrant",
       "Add chicken and cook until done",
       "Add rice and soy sauce, stir well",
-      "Add scrambled eggs back and mix"
+      "Add scrambled eggs back and mix",
     ],
-    tags: ["asian", "fried", "chicken"]
+    tags: ["asian", "fried", "chicken"],
   },
   {
-    id: "2", 
+    id: "2",
     name: "Spaghetti Aglio e Olio",
-    ingredients: ["spaghetti", "garlic", "olive oil", "red pepper flakes", "parsley"],
+    ingredients: [
+      "spaghetti",
+      "garlic",
+      "olive oil",
+      "red pepper flakes",
+      "parsley",
+    ],
     instructions: [
       "Boil spaghetti until al dente",
       "Heat olive oil in large pan",
       "Add sliced garlic and red pepper flakes",
       "Toss pasta with oil mixture",
-      "Garnish with fresh parsley"
+      "Garnish with fresh parsley",
     ],
-    tags: ["italian", "pasta", "vegetarian"]
+    tags: ["italian", "pasta", "vegetarian"],
   },
   {
     id: "3",
     name: "Quinoa Salad",
-    ingredients: ["quinoa", "cherry tomatoes", "cucumber", "feta cheese", "olive oil", "lemon"],
+    ingredients: [
+      "quinoa",
+      "cherry tomatoes",
+      "cucumber",
+      "feta cheese",
+      "olive oil",
+      "lemon",
+    ],
     instructions: [
       "Cook quinoa according to package directions",
-      "Dice tomatoes and cucumber", 
+      "Dice tomatoes and cucumber",
       "Mix quinoa with vegetables",
       "Crumble feta on top",
-      "Dress with olive oil and lemon juice"
+      "Dress with olive oil and lemon juice",
     ],
-    tags: ["healthy", "vegetarian", "gluten-free"]
+    tags: ["healthy", "vegetarian", "gluten-free"],
   },
   {
     id: "4",
     name: "Beef Tacos",
-    ingredients: ["ground beef", "taco seasoning", "tortillas", "lettuce", "tomato", "cheese"],
+    ingredients: [
+      "ground beef",
+      "taco seasoning",
+      "tortillas",
+      "lettuce",
+      "tomato",
+      "cheese",
+    ],
     instructions: [
       "Brown ground beef in skillet",
       "Add taco seasoning and water",
       "Simmer until thickened",
       "Warm tortillas",
-      "Fill with beef and toppings"
+      "Fill with beef and toppings",
     ],
-    tags: ["mexican", "beef", "quick"]
+    tags: ["mexican", "beef", "quick"],
   },
   {
     id: "5",
-    name: "Creamy Mushroom Risotto", 
-    ingredients: ["arborio rice", "mushrooms", "vegetable stock", "white wine", "parmesan", "butter"],
+    name: "Creamy Mushroom Risotto",
+    ingredients: [
+      "arborio rice",
+      "mushrooms",
+      "vegetable stock",
+      "white wine",
+      "parmesan",
+      "butter",
+    ],
     instructions: [
       "Sauté mushrooms until golden",
       "Toast rice in pan until translucent",
       "Add wine and stir until absorbed",
       "Add stock gradually, stirring constantly",
-      "Finish with butter and parmesan"
+      "Finish with butter and parmesan",
     ],
-    tags: ["italian", "creamy", "vegetarian"]
+    tags: ["italian", "creamy", "vegetarian"],
   },
   {
     id: "6",
@@ -75,10 +102,10 @@ export const mockRecipes = [
       "Dip bread slices in mixture",
       "Heat butter in skillet",
       "Cook bread until golden on both sides",
-      "Serve with syrup"
+      "Serve with syrup",
     ],
-    tags: ["breakfast", "sweet", "quick"]
-  }
+    tags: ["breakfast", "sweet", "quick"],
+  },
 ];
 
 // Type definition matching DynamoDB structure

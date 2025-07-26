@@ -5,6 +5,7 @@ This guide will help you deploy your RecipeAI web application to AWS EC2 for pro
 ## Prerequisites
 
 ### 1. AWS EC2 Instance Setup
+
 - **Instance Type**: t3.small or larger (minimum 2GB RAM)
 - **AMI**: Ubuntu 22.04 LTS
 - **Storage**: 20GB+ SSD
@@ -14,17 +15,20 @@ This guide will help you deploy your RecipeAI web application to AWS EC2 for pro
   - HTTPS (443) - Anywhere
 
 ### 2. Domain Name (Optional but Recommended)
+
 - Register a domain or use a subdomain
 - Point DNS A record to your EC2 instance's public IP
 
 ## Quick Deployment Steps
 
 ### Step 1: Connect to Your EC2 Instance
+
 ```bash
 ssh -i your-key.pem ubuntu@your-ec2-public-ip
 ```
 
 ### Step 2: Download and Run the Setup Script
+
 ```bash
 # Download the setup script
 wget https://raw.githubusercontent.com/your-repo/main/deploy-to-ec2.sh
@@ -37,9 +41,11 @@ sudo ./deploy-to-ec2.sh
 ```
 
 ### Step 3: Upload Your Application Code
+
 You can upload your code using one of these methods:
 
 #### Option A: Using SCP (Secure Copy)
+
 ```bash
 # From your local machine, copy the entire project
 scp -i your-key.pem -r ./your-project/ ubuntu@your-ec2-ip:/tmp/app
@@ -50,6 +56,7 @@ sudo chown -R recipeai:recipeai /opt/recipeai/
 ```
 
 #### Option B: Using Git
+
 ```bash
 # On EC2 instance
 cd /opt/recipeai
@@ -57,15 +64,18 @@ sudo -u recipeai git clone https://github.com/your-username/your-repo.git .
 ```
 
 #### Option C: Using AWS CodeDeploy
+
 Set up automated deployment from your Git repository.
 
 ### Step 4: Configure Environment Variables
+
 ```bash
 # Edit the environment file
 sudo nano /opt/recipeai/.env
 ```
 
 Add your production variables:
+
 ```env
 NODE_ENV=production
 PORT=3000
@@ -77,6 +87,7 @@ LAMBDA_API_URL=https://t34tfhi733.execute-api.ap-southeast-2.amazonaws.com/prod/
 ```
 
 ### Step 5: Update Domain Configuration
+
 ```bash
 # Edit nginx configuration
 sudo nano /etc/nginx/sites-available/recipeai
@@ -86,11 +97,13 @@ sudo nano /etc/nginx/sites-available/recipeai
 ```
 
 ### Step 6: Complete the Deployment
+
 ```bash
 sudo /opt/recipeai/complete-deployment.sh
 ```
 
 ### Step 7: Set Up SSL Certificate (Recommended)
+
 ```bash
 # Only run this after your domain DNS is pointing to your EC2 instance
 sudo /opt/recipeai/setup-ssl.sh
@@ -118,6 +131,7 @@ sudo /opt/recipeai/setup-ssl.sh
 ## Monitoring and Management
 
 ### Check Application Status
+
 ```bash
 # View application status
 sudo systemctl status recipeai
@@ -133,6 +147,7 @@ sudo pm2 monit
 ```
 
 ### Common Management Commands
+
 ```bash
 # Restart the application
 sudo systemctl restart recipeai
@@ -153,18 +168,22 @@ sudo tail -f /var/log/recipeai/error.log
 ## Security Considerations
 
 ### 1. Firewall Configuration
+
 The setup script configures UFW firewall to:
+
 - Allow SSH (port 22)
 - Allow HTTP/HTTPS (ports 80/443)
 - Deny all other incoming traffic
 
 ### 2. Application Security
+
 - Application runs as non-root user `recipeai`
 - Environment variables stored securely
 - Nginx configured with security headers
 - PM2 manages process with automatic restarts
 
 ### 3. SSL/TLS
+
 - Free SSL certificates via Let's Encrypt
 - Automatic certificate renewal
 - HTTPS redirect for secure connections
@@ -172,16 +191,19 @@ The setup script configures UFW firewall to:
 ## Scaling and Performance
 
 ### Vertical Scaling
+
 - Upgrade EC2 instance type for more CPU/RAM
 - Current setup uses PM2 cluster mode for multi-core utilization
 
 ### Horizontal Scaling
+
 - Add Application Load Balancer
 - Deploy to multiple EC2 instances
 - Use RDS for database clustering
 - Implement Redis for session storage
 
 ### Performance Monitoring
+
 ```bash
 # CPU and memory usage
 htop
@@ -201,6 +223,7 @@ sudo pm2 logs recipeai
 ### Common Issues
 
 1. **Application won't start**
+
    ```bash
    # Check logs
    sudo pm2 logs recipeai
@@ -208,6 +231,7 @@ sudo pm2 logs recipeai
    ```
 
 2. **502 Bad Gateway**
+
    ```bash
    # Check if app is running
    sudo pm2 status
@@ -224,6 +248,7 @@ sudo pm2 logs recipeai
    ```
 
 ### Log Locations
+
 - Application logs: `/var/log/recipeai/`
 - Nginx logs: `/var/log/nginx/`
 - System logs: `sudo journalctl -u recipeai`
@@ -231,12 +256,14 @@ sudo pm2 logs recipeai
 ## Backup and Recovery
 
 ### Regular Backups
+
 1. **Application Code**: Stored in Git repository
 2. **Environment Config**: Backup `.env` file
 3. **SSL Certificates**: Auto-renewed by certbot
 4. **Database**: If using local database, set up regular backups
 
 ### Disaster Recovery
+
 1. Launch new EC2 instance
 2. Run deployment script
 3. Restore environment configuration
@@ -245,12 +272,14 @@ sudo pm2 logs recipeai
 ## Cost Optimization
 
 ### EC2 Instance Recommendations
+
 - **Development/Testing**: t3.micro (1GB RAM)
 - **Small Production**: t3.small (2GB RAM)
 - **Medium Production**: t3.medium (4GB RAM)
 - **High Traffic**: t3.large+ or c5 instances
 
 ### Additional AWS Services
+
 - **CloudFront**: CDN for static assets
 - **Route 53**: DNS management
 - **Certificate Manager**: Free SSL certificates
@@ -260,12 +289,14 @@ sudo pm2 logs recipeai
 ## Support
 
 For deployment issues or questions:
+
 1. Check the troubleshooting section above
 2. Review application logs
 3. Verify all configuration files
 4. Ensure environment variables are set correctly
 
 Your RecipeAI application should now be running at:
+
 - **HTTP**: `http://your-domain.com`
 - **HTTPS**: `https://your-domain.com` (after SSL setup)
 

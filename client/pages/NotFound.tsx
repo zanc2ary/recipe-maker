@@ -1,6 +1,12 @@
 import { ChefHat, ArrowLeft, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
@@ -15,7 +21,9 @@ export default function NotFound() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">RecipeAI</h1>
-              <p className="text-sm text-muted-foreground">Turn your ingredients into amazing recipes</p>
+              <p className="text-sm text-muted-foreground">
+                Turn your ingredients into amazing recipes
+              </p>
             </div>
           </div>
         </div>
@@ -35,8 +43,9 @@ export default function NotFound() {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground mb-6">
-                The page you're looking for might have been moved, deleted, or doesn't exist. 
-                Let's get you back to cooking up something delicious!
+                The page you're looking for might have been moved, deleted, or
+                doesn't exist. Let's get you back to cooking up something
+                delicious!
               </p>
               <Link to="/">
                 <Button>
