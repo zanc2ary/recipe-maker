@@ -212,6 +212,14 @@ export default function Index() {
         {/* Generated Recipes */}
         {generatedRecipes.length > 0 && (
           <div className="max-w-6xl mx-auto">
+            {usingFallback && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-center">
+                <p className="text-yellow-800 text-sm">
+                  <span className="font-medium">Demo Mode:</span> Showing sample recipes.
+                  The AI recipe service is temporarily unavailable.
+                </p>
+              </div>
+            )}
             <h3 className="text-2xl font-bold text-center mb-8">
               Your Personalized Recipes
             </h3>
