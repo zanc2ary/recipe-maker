@@ -56,7 +56,18 @@ export const getRecipeRecommendations: RequestHandler = async (req, res) => {
 
       const data = await response.json();
       console.log('Lambda API success:', data);
-      res.json(data);
+
+      // Parse DynamoDB format to extract actual values
+      const parsedRecipes = data.map((item: any) => ({
+        id: item.id?.S || item.id,
+        name: item.name?.S || item.name,
+        ingredients: item.ingredients?.S ? item.ingredients.S.split(', ') : (item.ingredients || []),
+        instructions: item.instructions?.S ? item.instructions.S.split('. ').filter(Boolean) : (item.instructions || []),
+        tags: item.tags?.S ? item.tags.S.split(', ') : (item.tags || [])
+      }));
+
+      console.log('Parsed recipes:', parsedRecipes);
+      res.json(parsedRecipes);
       return;
 
     } catch (lambdaError) {
