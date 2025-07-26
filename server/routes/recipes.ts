@@ -40,7 +40,7 @@ export const getRecipeRecommendations: RequestHandler = async (req, res) => {
 
     // Try to call your Lambda API
     try {
-      const response = await fetch('https://t34fhri733.execute-api.ap-southeast-2.amazonaws.com/prod/recommend', {
+      const response = await fetch('https://t34tfhi733.execute-api.ap-southeast-2.amazonaws.com/prod/recommend', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
