@@ -1,25 +1,25 @@
 // Authentication API routes
 const handleLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) {
+    if (!username || !password) {
       return res.status(400).json({
         success: false,
-        message: "Email and password are required",
+        message: "Username and password are required",
       });
     }
 
-    console.log("Login attempt for:", email);
+    console.log("Login attempt for:", username);
 
     // --- Call your Lambda authentication function here ---
     try {
-      const lambdaResponse = await fetch("YOUR_LAMBDA_AUTH_URL", {
+      const lambdaResponse = await fetch("https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!lambdaResponse.ok) {
