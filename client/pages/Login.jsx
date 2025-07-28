@@ -295,8 +295,8 @@ export default function Login() {
             <div className="bg-white/50 rounded p-3 mb-3 text-xs">
               <p className="font-medium text-primary mb-1">Demo Credentials:</p>
               <p>
-                Email:{" "}
-                <code className="bg-white px-1 rounded">demo@recipeai.com</code>
+                Username:{" "}
+                <code className="bg-white px-1 rounded">demouser</code>
               </p>
               <p>
                 Password: <code className="bg-white px-1 rounded">demo123</code>
