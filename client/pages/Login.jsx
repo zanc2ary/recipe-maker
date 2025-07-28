@@ -16,6 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,8 +31,9 @@ export default function Login() {
     console.log("Login attempt:", { email, password });
 
     setIsLoading(false);
-    // Redirect to main app after successful login
-    // In a real app, you'd handle authentication state management here
+
+    // Redirect to recipe builder after successful login
+    navigate("/recipes");
   };
 
   return (
