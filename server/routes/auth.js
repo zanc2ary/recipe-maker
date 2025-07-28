@@ -57,8 +57,8 @@ const handleLogin = async (req, res) => {
       console.error("Lambda authentication error:", lambdaError);
 
       // For demo purposes, simulate successful login for specific credentials
-      if (email === "demo@recipeai.com" && password === "demo123") {
-        console.log("Demo login successful for:", email);
+      if (username === "demouser" && password === "demo123") {
+        console.log("Demo login successful for:", username);
 
         return res.json({
           success: true,
@@ -66,7 +66,7 @@ const handleLogin = async (req, res) => {
           token: "demo-token-" + Date.now(),
           user: {
             id: "demo-user",
-            email: email,
+            username: username,
             name: "Demo Chef",
           },
         });
