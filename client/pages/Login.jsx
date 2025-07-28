@@ -26,8 +26,8 @@ export default function Login() {
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
 
-    // THIS IS THE CORRECT, FULL URL TO YOUR LAMBDA FUNCTION
-    const loginApiUrl = "https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login";
+    // Your new REST API Invoke URL
+    const loginApiUrl = "https://ii8fojjop4.execute-api.ap-southeast-2.amazonaws.com/Prod/login";
 
     try {
       const response = await fetch(loginApiUrl, {
