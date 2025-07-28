@@ -41,28 +41,24 @@ export default function Login() {
         }),
       });
 
-      if (response.ok) {
-        // response.ok is true if the HTTP status is 200-299
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // Login successful
         console.log("Login successful! Redirecting...");
 
-        // Try to parse response for any user data or tokens
-        try {
-          const result = await response.json();
-          if (result.token) {
-            localStorage.setItem("authToken", result.token);
-          }
-          if (result.user) {
-            localStorage.setItem("user", JSON.stringify(result.user));
-          }
-        } catch (parseError) {
-          // If response parsing fails, that's okay - still proceed with redirect
-          console.log("Response parsing failed, but login was successful");
+        // Store authentication data
+        if (result.token) {
+          localStorage.setItem("authToken", result.token);
+        }
+        if (result.user) {
+          localStorage.setItem("user", JSON.stringify(result.user));
         }
 
         navigate("/recipes"); // Redirects to your main recipes page
       } else {
-        // This will run if the Lambda returns an error (e.g., 401 for invalid credentials)
-        setErrorMessage("Login failed. Please check your credentials.");
+        // Login failed
+        setErrorMessage(result.message || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       // This catches network errors or other issues with the fetch call itself
