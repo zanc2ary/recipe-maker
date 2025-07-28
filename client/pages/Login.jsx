@@ -21,7 +21,7 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault(); // Prevents the page from reloading
-    if (!email || !password) return;
+    if (!username || !password) return;
 
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
@@ -37,7 +37,7 @@ export default function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: email, // Using email as username
+          username: username,
           password: password,
         }),
       });
