@@ -26,9 +26,8 @@ export default function Login() {
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
 
-    // Your specific API Gateway Invoke URL
-    const loginApiUrl =
-      "https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login";
+    // Use backend proxy to avoid CORS issues
+    const loginApiUrl = "/api/auth/login";
 
     try {
       const response = await fetch(loginApiUrl, {
