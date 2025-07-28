@@ -54,7 +54,8 @@ export default function Index() {
 
     try {
       // Call Lambda API through our backend proxy to avoid CORS issues
-      const response = await fetch("/api/recipes/recommend", {
+      const recipeApiUrl = "https://t34tfhi733.execute-api.ap-southeast-2.amazonaws.com/prod/recommend"
+      const response = await fetch(recipeApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
