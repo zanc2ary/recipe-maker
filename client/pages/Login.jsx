@@ -26,8 +26,8 @@ export default function Login() {
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
 
-    // Use backend proxy to avoid CORS issues
-    const loginApiUrl = "/api/auth/login";
+    // THIS IS THE CORRECT, FULL URL TO YOUR LAMBDA FUNCTION
+    const loginApiUrl = "https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login";
 
     try {
       const response = await fetch(loginApiUrl, {
@@ -41,29 +41,17 @@ export default function Login() {
         }),
       });
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
+      if (response.ok) {
         // Login successful
         console.log("Login successful! Redirecting...");
-
-        // Store authentication data
-        if (result.token) {
-          localStorage.setItem("authToken", result.token);
-        }
-        if (result.user) {
-          localStorage.setItem("user", JSON.stringify(result.user));
-        }
-
         navigate("/recipes"); // Redirects to your main recipes page
       } else {
         // Login failed
-        setErrorMessage(
-          result.message || "Login failed. Please check your credentials.",
-        );
+        const result = await response.json(); // Get error message from Lambda
+        setErrorMessage(result.message || "Login failed. Please check your credentials.");
       }
     } catch (error) {
-      // This catches network errors or other issues with the fetch call itself
+      // This catches network errors
       console.error("Error during login:", error);
       setErrorMessage("An error occurred. Please try again later.");
     } finally {
