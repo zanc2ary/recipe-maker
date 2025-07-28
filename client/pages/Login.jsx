@@ -19,55 +19,54 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault(); // Prevents the page from reloading
     if (!email || !password) return;
 
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
 
+    // Your specific API Gateway Invoke URL
+    const loginApiUrl = 'https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login';
+
     try {
-      // --- Call your Lambda authentication function ---
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(loginApiUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
-          password
-        })
+          username: email, // Using email as username
+          password: password,
+        }),
       });
 
-      const result = await response.json();
+      if (response.ok) { // response.ok is true if the HTTP status is 200-299
+        console.log('Login successful! Redirecting...');
 
-      if (response.ok && result.success) {
-        // **Login successful - redirect to recipes page**
-        console.log('Login successful! Redirecting to recipes...');
-
-        // Store authentication token if provided
-        if (result.token) {
-          localStorage.setItem('authToken', result.token);
+        // Try to parse response for any user data or tokens
+        try {
+          const result = await response.json();
+          if (result.token) {
+            localStorage.setItem('authToken', result.token);
+          }
+          if (result.user) {
+            localStorage.setItem('user', JSON.stringify(result.user));
+          }
+        } catch (parseError) {
+          // If response parsing fails, that's okay - still proceed with redirect
+          console.log('Response parsing failed, but login was successful');
         }
 
-        // Store user information if provided
-        if (result.user) {
-          localStorage.setItem('user', JSON.stringify(result.user));
-        }
-
-        // Redirect to the recipes page
-        navigate('/recipes');
-
+        navigate('/recipes'); // Redirects to your main recipes page
       } else {
-        // Login failed - show error message
-        setErrorMessage(result.message || 'Login failed. Please check your credentials.');
-        console.log('Login failed:', result.message);
+        // This will run if the Lambda returns an error (e.g., 401 for invalid credentials)
+        setErrorMessage('Login failed. Please check your credentials.');
       }
-
     } catch (error) {
-      // Network or other error occurred
-      console.error('Login error:', error);
-      setErrorMessage('Unable to connect to authentication service. Please try again.');
+      // This catches network errors or other issues with the fetch call itself
+      console.error('Error during login:', error);
+      setErrorMessage('An error occurred. Please try again later.');
     } finally {
       setIsLoading(false);
     }
