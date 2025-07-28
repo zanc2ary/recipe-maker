@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChefHat, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { ChefHat, User, Lock, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
