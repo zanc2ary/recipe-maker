@@ -119,6 +119,13 @@ export default function Login() {
 
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-6">
+              {/* Error Message */}
+              {errorMessage && (
+                <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-center">
+                  <p className="text-sm text-destructive">{errorMessage}</p>
+                </div>
+              )}
+
               {/* Email Field */}
               <div className="space-y-2">
                 <label
