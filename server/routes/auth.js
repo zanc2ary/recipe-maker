@@ -14,13 +14,16 @@ const handleLogin = async (req, res) => {
 
     // --- Call your Lambda authentication function here ---
     try {
-      const lambdaResponse = await fetch("https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const lambdaResponse = await fetch(
+        "https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
         },
-        body: JSON.stringify({ username, password }),
-      });
+      );
 
       if (lambdaResponse.ok) {
         // Lambda authentication successful
@@ -33,7 +36,7 @@ const handleLogin = async (req, res) => {
             success: true,
             message: "Login successful",
             token: authResult.token || "lambda-token-" + Date.now(),
-            user: authResult.user || { username: username, name: "User" }
+            user: authResult.user || { username: username, name: "User" },
           });
         } catch (parseError) {
           // If parsing fails, still return success
@@ -41,12 +44,17 @@ const handleLogin = async (req, res) => {
             success: true,
             message: "Login successful",
             token: "lambda-token-" + Date.now(),
-            user: { username: username, name: "User" }
+            user: { username: username, name: "User" },
           });
         }
       } else {
         // Authentication failed
-        console.log("Authentication failed for:", username, "Status:", lambdaResponse.status);
+        console.log(
+          "Authentication failed for:",
+          username,
+          "Status:",
+          lambdaResponse.status,
+        );
 
         res.status(401).json({
           success: false,

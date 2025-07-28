@@ -58,7 +58,9 @@ export default function Login() {
         navigate("/recipes"); // Redirects to your main recipes page
       } else {
         // Login failed
-        setErrorMessage(result.message || "Login failed. Please check your credentials.");
+        setErrorMessage(
+          result.message || "Login failed. Please check your credentials.",
+        );
       }
     } catch (error) {
       // This catches network errors or other issues with the fetch call itself
