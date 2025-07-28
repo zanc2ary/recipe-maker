@@ -202,7 +202,7 @@ export default function Login() {
               {/* Login Button */}
               <Button
                 type="submit"
-                disabled={isLoading || !email || !password}
+                disabled={isLoading || !username || !password}
                 className="w-full"
                 size="lg"
               >
