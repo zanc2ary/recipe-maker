@@ -288,14 +288,18 @@ export default function Login() {
         <div className="max-w-md mx-auto mt-8">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center">
             <p className="text-sm text-primary/80 mb-3">
-              <span className="font-medium">Demo Mode:</span> This is a UI
-              demonstration. Authentication is not implemented yet.
+              <span className="font-medium">Demo Mode:</span> Try the authentication system!
             </p>
+            <div className="bg-white/50 rounded p-3 mb-3 text-xs">
+              <p className="font-medium text-primary mb-1">Demo Credentials:</p>
+              <p>Email: <code className="bg-white px-1 rounded">demo@recipeai.com</code></p>
+              <p>Password: <code className="bg-white px-1 rounded">demo123</code></p>
+            </div>
             <Link
               to="/recipes"
               className="text-primary hover:text-primary/80 font-medium text-sm underline"
             >
-              Skip login and try the recipe builder →
+              Or skip login and try the recipe builder →
             </Link>
           </div>
         </div>
