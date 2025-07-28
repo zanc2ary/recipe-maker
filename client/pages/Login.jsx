@@ -27,13 +27,14 @@ export default function Login() {
     setErrorMessage(""); // Clear any previous error messages
 
     // Your specific API Gateway Invoke URL
-    const loginApiUrl = 'https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login';
+    const loginApiUrl =
+      "https://0ectiuhd8a.execute-api.ap-southeast-2.amazonaws.com/login";
 
     try {
       const response = await fetch(loginApiUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: email, // Using email as username
@@ -41,32 +42,33 @@ export default function Login() {
         }),
       });
 
-      if (response.ok) { // response.ok is true if the HTTP status is 200-299
-        console.log('Login successful! Redirecting...');
+      if (response.ok) {
+        // response.ok is true if the HTTP status is 200-299
+        console.log("Login successful! Redirecting...");
 
         // Try to parse response for any user data or tokens
         try {
           const result = await response.json();
           if (result.token) {
-            localStorage.setItem('authToken', result.token);
+            localStorage.setItem("authToken", result.token);
           }
           if (result.user) {
-            localStorage.setItem('user', JSON.stringify(result.user));
+            localStorage.setItem("user", JSON.stringify(result.user));
           }
         } catch (parseError) {
           // If response parsing fails, that's okay - still proceed with redirect
-          console.log('Response parsing failed, but login was successful');
+          console.log("Response parsing failed, but login was successful");
         }
 
-        navigate('/recipes'); // Redirects to your main recipes page
+        navigate("/recipes"); // Redirects to your main recipes page
       } else {
         // This will run if the Lambda returns an error (e.g., 401 for invalid credentials)
-        setErrorMessage('Login failed. Please check your credentials.');
+        setErrorMessage("Login failed. Please check your credentials.");
       }
     } catch (error) {
       // This catches network errors or other issues with the fetch call itself
-      console.error('Error during login:', error);
-      setErrorMessage('An error occurred. Please try again later.');
+      console.error("Error during login:", error);
+      setErrorMessage("An error occurred. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -287,12 +289,18 @@ export default function Login() {
         <div className="max-w-md mx-auto mt-8">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center">
             <p className="text-sm text-primary/80 mb-3">
-              <span className="font-medium">Demo Mode:</span> Try the authentication system!
+              <span className="font-medium">Demo Mode:</span> Try the
+              authentication system!
             </p>
             <div className="bg-white/50 rounded p-3 mb-3 text-xs">
               <p className="font-medium text-primary mb-1">Demo Credentials:</p>
-              <p>Email: <code className="bg-white px-1 rounded">demo@recipeai.com</code></p>
-              <p>Password: <code className="bg-white px-1 rounded">demo123</code></p>
+              <p>
+                Email:{" "}
+                <code className="bg-white px-1 rounded">demo@recipeai.com</code>
+              </p>
+              <p>
+                Password: <code className="bg-white px-1 rounded">demo123</code>
+              </p>
             </div>
             <Link
               to="/recipes"
