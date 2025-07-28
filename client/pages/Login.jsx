@@ -16,6 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -23,17 +24,53 @@ export default function Login() {
     if (!email || !password) return;
 
     setIsLoading(true);
+    setErrorMessage(""); // Clear any previous error messages
 
-    // Simulate login API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // --- Call your Lambda authentication function ---
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
 
-    // Mock login success - in real app, handle authentication
-    console.log("Login attempt:", { email, password });
+      const result = await response.json();
 
-    setIsLoading(false);
+      if (response.ok && result.success) {
+        // **Login successful - redirect to recipes page**
+        console.log('Login successful! Redirecting to recipes...');
 
-    // Redirect to recipe builder after successful login
-    navigate("/recipes");
+        // Store authentication token if provided
+        if (result.token) {
+          localStorage.setItem('authToken', result.token);
+        }
+
+        // Store user information if provided
+        if (result.user) {
+          localStorage.setItem('user', JSON.stringify(result.user));
+        }
+
+        // Redirect to the recipes page
+        navigate('/recipes');
+
+      } else {
+        // Login failed - show error message
+        setErrorMessage(result.message || 'Login failed. Please check your credentials.');
+        console.log('Login failed:', result.message);
+      }
+
+    } catch (error) {
+      // Network or other error occurred
+      console.error('Login error:', error);
+      setErrorMessage('Unable to connect to authentication service. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
