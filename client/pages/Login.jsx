@@ -20,13 +20,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
-    event.preventDefault(); // Prevents the page from reloading
+    event.preventDefault(); 
     if (!username || !password) return;
 
     setIsLoading(true);
-    setErrorMessage(""); // Clear any previous error messages
+    setErrorMessage(""); 
 
-    // Your new REST API Invoke URL
+    
     const loginApiUrl = "https://ii8fojjop4.execute-api.ap-southeast-2.amazonaws.com/Prod/login";
 
     try {
@@ -44,7 +44,7 @@ export default function Login() {
       if (response.ok) {
         // Login successful
         console.log("Login successful! Redirecting...");
-        navigate("/recipes"); // Redirects to your main recipes page
+        navigate("/recipes");
       } else {
         // Login failed
         const result = await response.json(); // Get error message from Lambda
@@ -270,31 +270,7 @@ export default function Login() {
           </CardContent>
         </Card>
 
-        {/* Demo Notice */}
-        <div className="max-w-md mx-auto mt-8">
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center">
-            <p className="text-sm text-primary/80 mb-3">
-              <span className="font-medium">Demo Mode:</span> Try the
-              authentication system!
-            </p>
-            <div className="bg-white/50 rounded p-3 mb-3 text-xs">
-              <p className="font-medium text-primary mb-1">Demo Credentials:</p>
-              <p>
-                Username:{" "}
-                <code className="bg-white px-1 rounded">demouser</code>
-              </p>
-              <p>
-                Password: <code className="bg-white px-1 rounded">demo123</code>
-              </p>
-            </div>
-            <Link
-              to="/recipes"
-              className="text-primary hover:text-primary/80 font-medium text-sm underline"
-            >
-              Or skip login and try the recipe builder →
-            </Link>
-          </div>
-        </div>
+
       </main>
     </div>
   );
