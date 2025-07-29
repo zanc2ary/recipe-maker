@@ -93,7 +93,6 @@ export default function Index() {
       console.error("Error calling recipe API:", error);
       setUsingFallback(true);
 
-      // Show user-friendly error message but still provide fallback recipes
       const fallbackRecipes = [
         {
           id: "fallback-1",
